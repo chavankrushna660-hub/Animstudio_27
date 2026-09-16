@@ -10265,18 +10265,6 @@ function CanvasArea({
       return (a.zIndex ?? 0) - (b.zIndex ?? 0);
     });
 
-    // Calculate viewport boundaries for fast bounding-box culling (skip off-screen objects)
-    const viewportMinX = (0 - zoomOffset.x) / zoomScale;
-    const viewportMinY = (0 - zoomOffset.y) / zoomScale;
-    const viewportMaxX = (frontCanvas.width - zoomOffset.x) / zoomScale;
-    const viewportMaxY = (frontCanvas.height - zoomOffset.y) / zoomScale;
-
-    // Expand cull boundaries by 150px safety padding
-    const cullMinX = viewportMinX - 150;
-    const cullMinY = viewportMinY - 150;
-    const cullMaxX = viewportMaxX + 150;
-    const cullMaxY = viewportMaxY + 150;
-
     // Draw active layer drawings in sorted order
     sortedObjects.forEach((obj) => {
       try {
@@ -10330,44 +10318,6 @@ function CanvasArea({
             ...twitchResult.hiddenSubPaths
           }
         };
-      }
-
-      // Fast Viewport Culling: Skip rendering objects completely outside the active viewport
-      const t = drawObj.transform || { x: 0, y: 0, scaleX: 1, scaleY: 1 };
-      const objX = t.x;
-      const objY = t.y;
-      let minX = objX, maxX = objX, minY = objY, maxY = objY;
-
-      if (drawObj.type === '3d' && drawObj.vertices3D && drawObj.vertices3D.length > 0) {
-        const rad = 600 * Math.max(Math.abs(t.scaleX || 1), Math.abs(t.scaleY || 1));
-        minX = objX - rad; maxX = objX + rad;
-        minY = objY - rad; maxY = objY + rad;
-      } else if (drawObj.points && drawObj.points.length > 0) {
-        const pts = drawObj.points;
-        let lMinX = pts[0].x, lMaxX = pts[0].x, lMinY = pts[0].y, lMaxY = pts[0].y;
-        const step = pts.length > 20 ? Math.floor(pts.length / 10) : 1;
-        for (let pIdx = 0; pIdx < pts.length; pIdx += step) {
-          const px = pts[pIdx].x, py = pts[pIdx].y;
-          if (px < lMinX) lMinX = px;
-          if (px > lMaxX) lMaxX = px;
-          if (py < lMinY) lMinY = py;
-          if (py > lMaxY) lMaxY = py;
-        }
-        const sx = Math.abs(t.scaleX ?? 1);
-        const sy = Math.abs(t.scaleY ?? 1);
-        const pad = 80;
-        minX = objX + lMinX * sx - pad;
-        maxX = objX + lMaxX * sx + pad;
-        minY = objY + lMinY * sy - pad;
-        maxY = objY + lMaxY * sy + pad;
-      } else {
-        minX = objX - 400; maxX = objX + 400;
-        minY = objY - 400; maxY = objY + 400;
-      }
-
-      const isObjSelected = selectedObjectId === obj.id || (obj as any).isSelected;
-      if (!isObjSelected && (maxX < cullMinX || minX > cullMaxX || maxY < cullMinY || minY > cullMaxY)) {
-        return; // CULLED! Instantly skip off-screen objects
       }
 
       const hasLassoDeform = !!(drawObj.lassoDeformState && drawObj.lassoDeformState.active && drawObj.lassoDeformState.lassoPoints && drawObj.lassoDeformState.lassoPoints.length >= 3);

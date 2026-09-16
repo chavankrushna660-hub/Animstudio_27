@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Animstudio</title>
-    <meta name="description" content="Animstudio is the premier free 2D & 3D vector animation web app and cartoon maker like Adobe Animate on web and Android. Create frame by frame animations, character bone rigging with inverse kinematics, 3D stroke memory, liquify mesh deformer, and export high quality cartoon videos." />
+    <meta name="description" content="Animstudio is a powerful 2D vector animation web app and character animation cartoon maker with bone rigging, frame-by-frame timeline, mesh deformer, and high-quality video export." />
     <meta name="keywords" content="Animstudio, AnimStudio, Anim studio, animstudio app, animstudio.com, animation app, free animation app, best animation app, online animation app, adobe animate on web, adobe animate online, adobe animate web alternative, adobe animate for android, adobe animate alternative free, adobe animate, Cartoon maker app, 2D animation app, kahani maker app, 3D animation app, new animation app, 2D animation app for android, 2D animation web app, frame by frame animation app, vector animation app like adobe animate for android, for web, frame by frame animation app on web, kahani banane wala app, kahani banane wala software, cartoon banane wala app, 2D animation cartoon maker app, hindi kahani animation app, moral story animation app, adobe cartoon app, 2D cartoon video maker, 2D animation web app, vector animation, bone rigging, mesh deformer, 2D cartoon maker, online animation software, character rigging online, inverse kinematics 2d, onion skinning online, lip sync animation, auto tweening online, 3D mesh deformer online, liquify warp tool, webgl 2d animation editor, svg animation maker, export mp4 60fps animation web, कार्टून बनाने वाला ऐप, एनिमेशन बनाने वाला ऐप, कहानी बनाने वाला ऐप, 2D कार्टून वीडियो कैसे बनाएं" />
     <meta name="news_keywords" content="#Animstudio #AnimationApp #AdobeAnimate #CartoonMaker #2DAnimation #KahaniMaker #VectorAnimation #FrameByFrame #KahaniBananeWalaApp #AnimstudioWeb #BoneRigging #3DStrokeMemory" />
     <meta name="author" content="Animstudio" />
@@ -60,7 +60,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:site_name" content="Animstudio" />
     <meta property="og:title" content="Animstudio" />
-    <meta property="og:description" content="Animstudio is a 2D and 3D vector animation studio web app like Adobe Animate on web and Android with bone rigging, 3D stroke memory, liquify mesh deformer, keyframe timeline, and auto frames." />
+    <meta property="og:description" content="Animstudio is a powerful 2D vector animation web app and character animation cartoon maker with bone rigging, frame-by-frame timeline, mesh deformer, and high-quality video export." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="/" />
     <meta property="og:image" content="/og-image.png" />
@@ -74,7 +74,7 @@
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Animstudio" />
-    <meta name="twitter:description" content="Animstudio is a 2D and 3D vector animation studio web app like Adobe Animate on web and Android with bone rigging, 3D stroke memory, liquify mesh deformer, keyframe timeline, and auto frames." />
+    <meta name="twitter:description" content="Animstudio is a powerful 2D vector animation web app and character animation cartoon maker with bone rigging, frame-by-frame timeline, mesh deformer, and high-quality video export." />
     <meta name="twitter:image" content="/og-image.png" />
     <meta name="twitter:image:alt" content="Animstudio Logo and Workspace" />
 
@@ -96,7 +96,7 @@
             "Animstudio Online"
           ],
           "url": "/",
-          "description": "Animstudio is a 2D and 3D vector animation studio web app like Adobe Animate on web and Android with bone rigging, 3D stroke memory, liquify mesh deformer, keyframe timeline, and auto frames.",
+          "description": "Animstudio is a powerful 2D vector animation web app and character animation cartoon maker with bone rigging, frame-by-frame timeline, mesh deformer, and high-quality video export.",
           "inLanguage": "en",
           "publisher": {
             "@type": "Organization",
@@ -148,7 +148,7 @@
             "ratingCount": "1280",
             "bestRating": "5"
           },
-          "description": "Professional vector animation app like Adobe Animate on web and Android. Cartoon maker app, kahani maker app, frame by frame animation, bone rigging, and liquify mesh deformer.",
+          "description": "Animstudio is a powerful 2D vector animation web app and character animation cartoon maker with bone rigging, frame-by-frame timeline, mesh deformer, and high-quality video export.",
           "image": "/logo.png",
           "screenshot": "/og-image.png",
           "featureList": [
@@ -186,36 +186,10 @@
         height: 100%;
         overflow: hidden;
       }
-      @keyframes animstudio-pulse {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.06); opacity: 0.88; }
-      }
-      @keyframes animstudio-bar {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(200%); }
-      }
     </style>
   </head>
   <body class="bg-neutral-950 text-white antialiased overflow-hidden select-none">
-    <div id="root">
-      <!-- Instant Zero-Delay Splash & Visual Loader: Appears immediately until React mounts -->
-      <div id="app-initial-splash" style="position:fixed;inset:0;background-color:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;color:#ffffff;">
-        <div style="width:78px;height:78px;border-radius:18px;background:#E5232A;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px rgba(229,35,42,0.45);margin-bottom:18px;animation:animstudio-pulse 1.8s infinite ease-in-out;">
-          <svg width="48" height="48" viewBox="0 0 1024 1024" fill="#FFFFFF">
-            <path fill-rule="evenodd" d="M 217.6 884.6 L 337.2 884.6 L 406.2 671.9 L 554.5 646.5 L 593.6 876.5 L 748.9 876.5 L 676.5 651.1 L 808.7 625.9 L 769.6 468.3 L 642.0 493.6 L 556.9 178.5 L 484.4 139.4 L 472.9 176.2 L 434.9 161.2 L 408.5 208.4 L 310.8 561.5 L 236.0 574.1 L 215.3 706.4 L 282.0 693.7 L 217.6 884.6 Z M 474.1 348.7 L 518.9 522.4 L 395.9 544.2 Z" />
-          </svg>
-        </div>
-        <h1 style="font-size:22px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin:0 0 6px 0;color:#ffffff;">Animstudio</h1>
-        <p style="font-size:11px;color:#fbbf24;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin:0 0 20px 0;">2D &amp; 3D Vector Animation Studio</p>
-        <div style="width:140px;height:4px;background:#262626;border-radius:999px;overflow:hidden;position:relative;">
-          <div style="position:absolute;top:0;left:0;width:60%;height:100%;background:#E5232A;border-radius:999px;animation:animstudio-bar 1.2s infinite ease-in-out;"></div>
-        </div>
-        <div id="splash-timeout-hint" style="display:none;margin-top:20px;font-size:12px;color:#a3a3a3;text-align:center;">
-          <p style="margin:0 0 10px 0;">Taking longer than usual to start?</p>
-          <button onclick="window.location.reload()" style="background:#E5232A;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:700;cursor:pointer;">Reload Workspace</button>
-        </div>
-      </div>
-    </div>
+    <div id="root"></div>
 
     <!-- Hidden Search Engine Crawlable Content & Social Links for SEO Verification -->
     <noscript>
@@ -243,15 +217,6 @@
       <a href="https://github.com/animstudio" rel="noopener noreferrer">GitHub Repository</a>
     </footer>
 
-    <script>
-      // Display reload button after 7 seconds if the workspace hasn't fully rendered
-      setTimeout(function() {
-        var hint = document.getElementById('splash-timeout-hint');
-        if (hint && document.getElementById('app-initial-splash')) {
-          hint.style.display = 'block';
-        }
-      }, 7000);
-    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

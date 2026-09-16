@@ -768,6 +768,28 @@ input.color-hue-slider::-moz-range-track {
   stroke: #000000 !important;
 }
 
+/* Pen Tool Panel Buttons: Explicit Grey background with clearly visible black text */
+#pen-tool-panel button,
+div#pen-tool-panel button {
+  background-color: #d1d5db !important;
+  background: #d1d5db !important;
+  color: #000000 !important;
+  border: 1px solid #9ca3af !important;
+}
+
+#pen-tool-panel button:hover,
+div#pen-tool-panel button:hover {
+  background-color: #9ca3af !important;
+  background: #9ca3af !important;
+  color: #000000 !important;
+}
+
+#pen-tool-panel button *,
+div#pen-tool-panel button * {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+
 /* 5. ACTIVE BUTTONS / TOOLS: YELLOW BACKGROUND WITHOUT GLOW */
 #anim-root .active-tool-btn,
 #anim-root button.active-tool-btn,

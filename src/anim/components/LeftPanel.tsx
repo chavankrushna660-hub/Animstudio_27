@@ -49,7 +49,8 @@ import {
   AlignRight,
   AlignVerticalSpaceAround,
   ZoomIn,
-  ZoomOut
+  ZoomOut,
+  XCircle
 } from 'lucide-react';
 import { VectorObject, Layer, BrushSettings, EraserSettings, KnifeSettings, PivotSettings, MLSettings } from '../types';
 import { getDailyLimitStatus } from '../utils/engine3D';
@@ -512,6 +513,21 @@ function LeftPanel({
 
           {/* Bottom Row: Options distinctly in their own horizontal row so they NEVER hide drawing name */}
           <div className="card-actions-row flex items-center justify-end gap-1.5 w-full pt-1 border-t border-neutral-200 dark:border-neutral-800/80">
+            {isSelected && (
+              <button
+                type="button"
+                id={`btn-unselect-card-${obj.id}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedObjectId(null);
+                }}
+                className="card-action-btn px-2.5 h-8 flex items-center justify-center gap-1 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-black text-[11px] uppercase tracking-wider transition-colors cursor-pointer shrink-0 shadow-sm active:scale-95 mr-auto"
+                title="Unselect this drawing (drawing stays on canvas)"
+              >
+                <XCircle className="w-4 h-4 stroke-[2.6]" />
+                <span>Unselect</span>
+              </button>
+            )}
             <button
               type="button"
               onClick={(e) => {
@@ -645,6 +661,21 @@ function LeftPanel({
             </span>
             <div className="flex items-center gap-2">
               <button
+                id="btn-unselect-drawing-header"
+                type="button"
+                onClick={() => setSelectedObjectId(null)}
+                disabled={!selectedObjectId}
+                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer border shadow-sm ${
+                  selectedObjectId
+                    ? 'bg-rose-50 hover:bg-rose-100 text-rose-700 border-rose-200 active:scale-95'
+                    : 'bg-neutral-100 text-neutral-400 border-neutral-200 opacity-40 cursor-not-allowed'
+                }`}
+                title={selectedObjectId ? "Unselect drawing (drawing stays on canvas)" : "No drawing selected"}
+              >
+                <XCircle className="w-3.5 h-3.5 stroke-[2.4] text-rose-500" />
+                <span>Unselect</span>
+              </button>
+              <button
                 onClick={handleGroupSelected}
                 disabled={!selectedObjectId}
                 className={`p-2 rounded-xl bg-white hover:bg-neutral-100 text-black transition-all cursor-pointer border-0 shadow-sm ${
@@ -762,18 +793,29 @@ function LeftPanel({
                 </div>
                 <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-2.5 flex items-center justify-between gap-2">
                   <span 
-                    onClick={() => setSelectedObjectId(null)}
-                    className="text-[13px] truncate font-extrabold text-white flex-1 cursor-pointer hover:text-rose-400 transition-colors"
-                    title="Click to unselect drawing"
+                    className="text-[13px] truncate font-extrabold text-white flex-1"
+                    title={objects[selectedObjectId].name}
                   >
                     {objects[selectedObjectId].name}
                   </span>
-                  <button
-                    onClick={() => duplicateObject(selectedObjectId)}
-                    className="bg-amber-500 hover:bg-amber-600 text-neutral-950 text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-wider transition-all cursor-pointer shadow-md shrink-0"
-                  >
-                    Duplicate
-                  </button>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <button
+                      id="btn-unselect-drawing-quick"
+                      type="button"
+                      onClick={() => setSelectedObjectId(null)}
+                      className="bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-black px-2.5 py-1.5 rounded-lg uppercase tracking-wider transition-all cursor-pointer shadow-md flex items-center gap-1 active:scale-95"
+                      title="Unselect drawing (drawing stays on canvas)"
+                    >
+                      <XCircle className="w-3.5 h-3.5 stroke-[2.6]" />
+                      Unselect
+                    </button>
+                    <button
+                      onClick={() => duplicateObject(selectedObjectId)}
+                      className="bg-amber-500 hover:bg-amber-600 text-neutral-950 text-[10px] font-black px-2.5 py-1.5 rounded-lg uppercase tracking-wider transition-all cursor-pointer shadow-md shrink-0"
+                    >
+                      Duplicate
+                    </button>
+                  </div>
                 </div>
 
                 {/* Z-Index Controls */}
@@ -1278,6 +1320,7 @@ function LeftPanel({
                 {/* Path Action & Erase Controls */}
                 <div className="space-y-1.5">
                   <button
+                    id="pen-tool-btn-finish"
                     type="button"
                     onClick={() => {
                       try {
@@ -1286,13 +1329,14 @@ function LeftPanel({
                         console.error('Finish pen stroke error:', err);
                       }
                     }}
-                    className="w-full bg-cyan-500 hover:bg-cyan-400 text-neutral-950 text-[9.5px] font-black py-1.5 rounded-lg uppercase tracking-wider transition-all cursor-pointer shadow-md text-center flex items-center justify-center gap-1.5"
+                    className="w-full !bg-neutral-200 hover:!bg-neutral-300 !text-black text-[10px] font-black py-2 px-3 rounded-lg uppercase tracking-wider transition-all cursor-pointer shadow-sm text-center flex items-center justify-center gap-1.5 border border-neutral-400/80 active:scale-[0.98]"
                   >
-                    <CheckCircle2 className="w-3 h-3" />
-                    Finish / New Pen Stroke
+                    <CheckCircle2 className="w-3.5 h-3.5 !text-black stroke-[2.8]" />
+                    <span>Finish / New Pen Stroke</span>
                   </button>
 
                   <button
+                    id="pen-tool-btn-erase-drawing"
                     type="button"
                     onClick={() => {
                       try {
@@ -1304,13 +1348,14 @@ function LeftPanel({
                         console.error('Erase pen drawing error:', err);
                       }
                     }}
-                    className="w-full bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-[9.5px] font-bold py-1.5 rounded-lg uppercase tracking-wider transition-all cursor-pointer border border-rose-500/40 text-center flex items-center justify-center gap-1.5"
+                    className="w-full !bg-neutral-200 hover:!bg-neutral-300 !text-black text-[10px] font-black py-2 px-3 rounded-lg uppercase tracking-wider transition-all cursor-pointer shadow-sm text-center flex items-center justify-center gap-1.5 border border-neutral-400/80 active:scale-[0.98]"
                   >
-                    <Trash2 className="w-3 h-3 text-rose-400" />
-                    Erase Pen Drawing
+                    <Trash2 className="w-3.5 h-3.5 !text-black stroke-[2.8]" />
+                    <span>Erase Pen Drawing</span>
                   </button>
 
                   <button
+                    id="pen-tool-btn-erase-anchor"
                     type="button"
                     onClick={() => {
                       try {
@@ -1319,12 +1364,13 @@ function LeftPanel({
                         console.error('Erase selected anchor error:', err);
                       }
                     }}
-                    className="w-full bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-[9px] font-medium py-1.5 rounded-lg uppercase tracking-wider transition-all cursor-pointer border border-neutral-800 text-center"
+                    className="w-full !bg-neutral-200 hover:!bg-neutral-300 !text-black text-[10px] font-black py-2 px-3 rounded-lg uppercase tracking-wider transition-all cursor-pointer shadow-sm text-center border border-neutral-400/80 active:scale-[0.98]"
                   >
-                    Erase Selected Anchor Node
+                    <span>Erase Selected Anchor Node</span>
                   </button>
 
                   <button
+                    id="pen-tool-btn-reverse-path"
                     type="button"
                     onClick={() => {
                       try {
@@ -1337,9 +1383,9 @@ function LeftPanel({
                       }
                     }}
                     disabled={!selectedObjectId}
-                    className="w-full bg-neutral-900 hover:bg-neutral-800 disabled:opacity-40 text-cyan-300 text-[9px] font-bold py-1.5 rounded-lg uppercase tracking-wider transition-all cursor-pointer border border-neutral-800 text-center"
+                    className="w-full !bg-neutral-200 hover:!bg-neutral-300 disabled:opacity-40 !text-black text-[10px] font-black py-2 px-3 rounded-lg uppercase tracking-wider transition-all cursor-pointer shadow-sm text-center border border-neutral-400/80 active:scale-[0.98]"
                   >
-                    Reverse Path Direction
+                    <span>Reverse Path Direction</span>
                   </button>
                 </div>
               </div>
