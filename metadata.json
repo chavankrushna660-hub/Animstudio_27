@@ -1,0 +1,6 @@
+{
+  "name": "Animstudio",
+  "description": "Animstudio is the premier free 2D & 3D vector animation web app and cartoon maker like Adobe Animate on web and Android with bone rigging, 3D stroke memory, liquify mesh deformer, and auto frames.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
