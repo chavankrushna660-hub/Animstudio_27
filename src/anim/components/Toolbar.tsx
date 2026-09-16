@@ -42,6 +42,9 @@ import {
   CircleDot,
   RefreshCw,
   Zap,
+  LineSquiggle,
+  SplinePointer,
+  Wrench,
   Maximize2, 
   Minimize2,
   ChevronUp,
@@ -98,10 +101,10 @@ export default function Toolbar({
     { id: 'MOT', shortId: 'MOT', name: 'Motion Path', label: 'Motion Path Trajectory (MOT)', icon: Route, category: 'RIG' },
     { id: 'CPT', shortId: 'CPT', name: 'Curve Path', label: 'Curve Path Tool (CPT)', icon: GitFork, category: 'SHAPE' },
     { id: 'VDF', shortId: 'VDF', name: 'Curve Deformer', label: 'Vector Curve Deformer (VDF)', icon: Workflow, category: 'SHAPE' },
-    { id: 'VPR', shortId: 'VPR', name: 'Pen Reshape', label: 'Vector Pen Reshape (VPR)', icon: PenLine, category: 'SHAPE' },
+    { id: 'VPR', shortId: 'VPR', name: 'Pen Reshape', label: 'Vector Pen Reshape (VPR)', icon: SplinePointer, category: 'SHAPE' },
     { id: 'PBM', shortId: 'PBM', name: 'Points Move', label: 'Direct Points Movement (PBM)', icon: Network, category: 'SHAPE' },
     { id: 'RPD', shortId: 'RPD', name: 'Rigid Deform', label: 'Rigid Point Deform (RPD)', icon: Disc, category: 'SHAPE' },
-    { id: 'CRV', shortId: 'CRV', name: 'Curve Line', label: 'Curve Line Deformer (CRV)', icon: Activity, category: 'SHAPE' },
+    { id: 'CRV', shortId: 'CRV', name: 'Curve Line', label: 'Curve Line Deformer (CRV)', icon: LineSquiggle, category: 'SHAPE' },
     { id: 'EYE', shortId: 'EYE', name: 'Eyedropper', label: 'Eyedropper Color Picker (EYE)', icon: Pipette, category: 'DRAW' },
     { id: 'CONTOUR_EDITOR', shortId: 'CNE', name: 'Contour Editor', label: 'Contour Editor (Bezier & Points)', icon: Crosshair, category: 'SHAPE' },
     { id: 'CUTTER', shortId: 'CTR', name: 'Cutter', label: 'Cutter Tool (Line Trim)', icon: Scissors, category: 'DRAW' },
@@ -141,44 +144,32 @@ export default function Toolbar({
         collapsed ? 'w-24 min-w-[96px] max-w-[96px]' : 'w-72 min-w-[288px] max-w-[288px]'
       }`}
     >
-      {/* Fixed Sticky Header */}
-      <div className="h-16 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between px-3 shrink-0 bg-white dark:bg-[#1c2026] z-20">
-        {!collapsed ? (
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-black uppercase tracking-wider text-amber-500 dark:text-amber-400">
-              Toolbox ({visibleTools.length})
-            </span>
-          </div>
+      {/* Expand / Collapse Button directly replacing the removed header div at its exact place */}
+      <button
+        id="toolbar-collapse-btn"
+        onClick={() => setCollapsed(!collapsed)}
+        className={`w-full border-b border-neutral-200 dark:border-neutral-800 !bg-white hover:!bg-neutral-100 !text-black transition-all cursor-pointer flex items-center shrink-0 z-20 shadow-xs active:scale-[0.99] ${
+          collapsed
+            ? 'h-12 justify-center p-2'
+            : 'h-12 justify-between px-3.5'
+        }`}
+        title={collapsed ? "Expand toolbar" : "Collapse toolbar"}
+      >
+        {collapsed ? (
+          <Maximize2 className="w-5 h-5 stroke-[2.8] !text-black" />
         ) : (
-          <span className="text-[10px] font-black text-neutral-400 uppercase tracking-tight">
-            TOOLS
-          </span>
+          <>
+            <span className="text-xs font-black uppercase tracking-wider !text-black flex items-center gap-1.5">
+              <Wrench className="w-4 h-4 stroke-[2.5] !text-black" />
+              <span>Toolbox ({visibleTools.length})</span>
+            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-black uppercase tracking-wider !text-black">Collapse</span>
+              <Minimize2 className="w-4 h-4 stroke-[2.8] !text-black" />
+            </div>
+          </>
         )}
-
-        <div className="flex items-center gap-1.5 ml-auto">
-          {/* Scroll to top instant reset button if scrolled down */}
-          {isScrolled && (
-            <button
-              onClick={scrollToTop}
-              className="p-2 rounded-xl bg-amber-400 hover:bg-amber-500 text-black font-black transition-all cursor-pointer shadow-sm flex items-center justify-center animate-fade-in"
-              title="Reset to Top Tools"
-              aria-label="Scroll to top"
-            >
-              <ArrowUp className="w-5 h-5 stroke-[3.2]" />
-            </button>
-          )}
-
-          {/* Expand / Collapse Button */}
-          <button
-            id="toolbar-collapse-btn"
-            onClick={() => setCollapsed(!collapsed)}
-            className="p-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-black dark:text-white transition-all cursor-pointer border border-neutral-200 dark:border-neutral-700 shadow-sm"
-            title={collapsed ? "Expand toolbar" : "Collapse toolbar"}
-          >
-            {collapsed ? <Maximize2 className="w-5 h-5 stroke-[3]" /> : <Minimize2 className="w-5 h-5 stroke-[3]" />}
-          </button>
-        </div>
-      </div>
+      </button>
 
       {/* Expanded Quick Category Filter Bar */}
       {!collapsed && (

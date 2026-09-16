@@ -790,6 +790,28 @@ div#pen-tool-panel button * {
   stroke: #000000 !important;
 }
 
+/* Toolbar Collapse Button replacing the top header div */
+#toolbar-collapse-btn,
+button#toolbar-collapse-btn {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-bottom: 2px solid #e5e7eb !important;
+}
+
+#toolbar-collapse-btn:hover,
+button#toolbar-collapse-btn:hover {
+  background-color: #f3f4f6 !important;
+  background: #f3f4f6 !important;
+  color: #000000 !important;
+}
+
+#toolbar-collapse-btn *,
+button#toolbar-collapse-btn * {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+
 /* 5. ACTIVE BUTTONS / TOOLS: YELLOW BACKGROUND WITHOUT GLOW */
 #anim-root .active-tool-btn,
 #anim-root button.active-tool-btn,
